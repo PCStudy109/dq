@@ -1,5 +1,5 @@
 {
-  "name": "express-app",
+  "name": "dq",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -16,5 +16,13 @@
     "morgan": "~1.9.1",
     "pg": "^8.2.1",
     "pg-escape": "^0.2.0"
-  }
+  },
+  "devDependencies": {
+    "config": "^3.3.1"
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "UNLICENSED",
+  "description": ""
 }
+
