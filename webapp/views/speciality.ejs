@@ -1,0 +1,210 @@
+<%- include('header') %>
+<body>
+    <p>
+      <a href="/">Top</a>
+      &gt; 特技・特性を調べる
+    </p>
+    <p><h4>テリワンSP パーティ作成支援</h4></p>
+
+<form action="/speciality" method="get">
+<table border="0">
+  <tr>
+    <td align="right"><b> 名前：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: ホイミ つるぎの舞"
+         <% if (name != ''){ %>
+             value="<%= name %>" 
+         <% } %>
+         name="name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td align="right"><b> 特技/特性：</b></td>
+      <td>
+      <% if(types.length == 0){ %>
+             <input type="checkbox" name="type" value="特技" checked="checked">特技
+             <input type="checkbox" name="type" value="特性" checked="checked">特性
+      <% } else {%>
+      <%     var type_idx = 0; %>
+      <%     var inputs = ['特技', '特性']; %>
+      <%     for(var input_idx = 0; input_idx < 2; input_idx++){ %>
+                 <input type="checkbox" name="type" value="<%=inputs[input_idx]%>" 
+      <%         if(type_idx <= types.length){ %>
+      <%             if(inputs[input_idx] == types[type_idx]){ %>
+                         checked="checked"
+      <%                 type_idx++; %>
+      <%             } %>
+      <%         } %>
+                 ><%=inputs[input_idx]%>
+      <%     } %>
+      <% } %>
+      </td>
+  </tr>
+  <tr>
+      <td align="right"><b> ターン消費有無：</b></td>
+      <td>
+      <% if(turns.length == 0){ %>
+             <input type="checkbox" name="turn" value="有" checked="checked">有
+             <input type="checkbox" name="turn" value="無" checked="checked">無
+      <% } else {%>
+      <%     var turn_idx = 0; %>
+      <%     var inputs = ['有', '無']; %>
+      <%     for(var input_idx = 0; input_idx < 2; input_idx++){ %>
+                 <input type="checkbox" name="turn" value="<%=inputs[input_idx]%>" 
+      <%         if(turn_idx <= turns.length){ %>
+      <%             if(inputs[input_idx] == turns[turn_idx]){ %>
+                         checked="checked"
+      <%                 turn_idx++; %>
+      <%             } %>
+      <%         } %>
+                 ><%=inputs[input_idx]%>
+      <%     } %>
+      <% } %>
+      </td>
+  </tr>
+  <tr>
+      <td align="right"><b> 特技分類：</b></td>
+      <td>
+      <% if(categories.length == 0){ %>
+             <input type="checkbox" name="category" value="斬撃" checked="checked">斬撃
+             <input type="checkbox" name="category" value="呪文" checked="checked">呪文
+             <input type="checkbox" name="category" value="体技" checked="checked">体技
+             <input type="checkbox" name="category" value="踊り" checked="checked">踊り
+             <input type="checkbox" name="category" value="霧" checked="checked">霧
+      <% } else {%>
+      <%     var category_idx = 0; %>
+      <%     var inputs = ['斬撃', '呪文', '体技', '踊り', '霧']; %>
+      <%     for(var input_idx = 0; input_idx < 5; input_idx++){ %>
+                 <input type="checkbox" name="category" value="<%=inputs[input_idx]%>" 
+      <%         if(category_idx <= categories.length){ %>
+      <%             if(inputs[input_idx] == categories[category_idx]){ %>
+                         checked="checked"
+      <%                 category_idx++; %>
+      <%             } %>
+      <%         } %>
+                 ><%=inputs[input_idx]%>
+      <%     } %>
+      <% } %>
+      </td>
+  </tr>
+  <tr>
+    <td align="right"><b> 特技属性：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: イオ メラ"
+         <% if (attribute != ''){ %>
+             value="<%= attribute %>" 
+         <% } %>
+         name="attribute" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+      <td align="right"><b> 対象：</b></td>
+      <td>
+      <% if(targets.length == 0){ %>
+             <input type="checkbox" name="target" value="敵全体" checked="checked">敵全体
+             <input type="checkbox" name="target" value="敵単体" checked="checked">敵単体
+             <input type="checkbox" name="target" value="敵ランダム" checked="checked">敵ランダム
+             <input type="checkbox" name="target" value="味方全体" checked="checked">味方全体
+             <input type="checkbox" name="target" value="味方単体" checked="checked">味方単体
+             <input type="checkbox" name="target" value="敵味方全体" checked="checked">敵味方全体
+             <input type="checkbox" name="target" value="自分" checked="checked">自分
+      <% } else {%>
+      <%     var target_idx = 0; %>
+      <%     var inputs = ['敵全体', '敵単体', '敵ランダム', '味方全体', '味方単体', '敵味方全体', '自分']; %>
+      <%     for(var input_idx = 0; input_idx < 7; input_idx++){ %>
+                 <input type="checkbox" name="target" value="<%=inputs[input_idx]%>" 
+      <%         if(target_idx <= targets.length){ %>
+      <%             if(inputs[input_idx] == targets[target_idx]){ %>
+                         checked="checked"
+      <%                 target_idx++; %>
+      <%             } %>
+      <%         } %>
+                 ><%=inputs[input_idx]%>
+      <%     } %>
+      <% } %>
+      </td>
+  </tr>
+  <tr>
+    <td align="right"><b> 効果：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: 悪魔系 最大"
+         <% if (effect != ''){ %>
+             value="<%= effect %>" 
+         <% } %>
+         name="effect" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td align="right"><b> スキル名：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: グランスペル イオ"
+         <% if (skill_name != ''){ %>
+             value="<%= skill_name %>" 
+         <% } %>
+         name="skill_name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td align="right"><b> モンスター名：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: シャムダ バトルレックス"
+         <% if (monster_name != ''){ %>
+             value="<%= monster_name %>" 
+         <% } %>
+         name="monster_name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td>
+      <input id="submit_button" type="submit" value="調査開始">
+    </td>
+  </tr>
+</table>
+</form>
+
+<div class="scr">
+    調査結果：<%= records.length %>件, サーバ処理時間：<%= exec_time %>ms
+    <table id="fav-table" class="table table-bordered">
+        <thead><tr>
+                   <th>名前</th><th>特技/特性</th><th>ターン消費有無</th><th>特技分類</th><th>特技属性</th><th>対象</th>
+                   <th>消費MP</th><th>効果</th><th>スキル名</th><th>モンスター名</th>
+               </tr>
+        </thead>
+        <tbody>
+        <% for (let i in records){ %>
+            <tr><td><%= records[i].name %></td><td><%= records[i].type %></td><td><%= records[i].has_turn %></td><td><%= records[i].category %></td>
+                <td><%= records[i].attribute %></td><td><%= records[i].target %></td><td><%= records[i].consume_mp %>
+                </td><td><%= records[i].effect %></td>
+                <!-- スキル  -->
+                <td>
+                <% skill_names = records[i].skill_name; %>
+                <% for (let j in skill_names){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <a href="/skill?skill_name_match=<%= skill_names[j]%>"</a><%= skill_names[j]%>
+                <% } %>
+                <% if (records[i].skill_more == true){ %>
+                        <a href="/skill?name=<%=records[i].name%>"> <br>...もっとみる</a> 
+                <% } %>
+                </td>
+                <!-- モンスター  -->
+                <td>
+                <% monster_names = records[i].monster_name; %>
+                <% for (let j in monster_names){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <a href="/monster?name=<%=monster_names[j]%>"><%= monster_names[j] %></a>
+                <% } %>
+                <% if (records[i].monster_more == true){ %>
+                        <a href="/monster?char_name=<%=records[i].name%> "> <br>...もっとみる</a> 
+                <% } %>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+</body>

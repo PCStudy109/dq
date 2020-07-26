@@ -1,0 +1,95 @@
+<%- include('header') %>
+<body>
+    <p>
+      <a href="/">Top</a>
+      &gt; スキルを調べる
+    </p>
+    <p><h4>テリワンSP パーティ作成支援</h4></p>
+
+<form action="/skill" method="get">
+<table border="0">
+  <tr>
+    <td align="right"><b> 名前：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: グランスペル イオ"
+         <% if (skill_name != ''){ %>
+             value="<%= skill_name %>" 
+         <% } %>
+         name="skill_name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td align="right"><b> 特技/特性名：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: ホイミ つるぎの舞"
+         <% if (name != ''){ %>
+             value="<%= name %>" 
+         <% } %>
+         name="name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td>
+      <input id="submit_button" type="submit" value="調査開始">
+    </td>
+  </tr>
+</table>
+</form>
+調査結果：<%= records.length %>件, サーバ処理時間：<%= exec_time %>ms
+<div class="scr">
+    <table id="fav-table" class="table table-bordered">
+        <thead><tr>
+                   <th>スキル名</th><th>特技/特性の名前</th><th>特技/特性</th><th>ターン消費有無</th>
+                   <th>効果</th>
+               </tr>
+        </thead>
+        <tbody>
+        <% for (let i in records){ %>
+            <tr><td><%= records[i].skill_name %></td>
+                <!-- 特技/特性の名称  -->
+                <td>
+                <% names = records[i].name; %>
+                <% for (let j in names){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <a href="/speciality?name_match=<%= names[j] %>&type=<%= records[i].type[j] %>"><%= names[j] %></a>
+                <% } %>
+                </td>
+                <!-- 特技/特性  -->
+                <td>
+                <% types = records[i].type; %>
+                <% for (let j in types){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <%= types[j] %>
+                <% } %>
+                </td>
+                <!-- ターン消費有無  -->
+                <td>
+                <% turns = records[i].has_turn; %>
+                <% for (let j in turns){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <%=     turns[j] %>
+                <% } %>
+                </td>
+                <!-- 効果  -->
+                <td>
+                <% effects = records[i].effect; %>
+                <% for (let j in effects){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <%=     effects[j] %>
+                <% } %>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+</body>

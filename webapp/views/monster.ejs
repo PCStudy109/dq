@@ -1,0 +1,140 @@
+<%- include('header') %>
+<body>
+    <p>
+      <a href="/">Top</a>
+      &gt; モンスターを調べる
+    </p>
+    <p><h4>テリワンSP パーティ作成支援</h4></p>
+
+<form action="/monster" method="get">
+<table border="0">
+  <tr>
+    <td align="right"><b> モンスター名：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: スライム 魔戦士"
+         <% if (monster_name != ''){ %>
+             value="<%= monster_name %>" 
+         <% } %>
+         id="monster_name" name="monster_name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+      <td align="right"><b> サイズ：</b></td>
+      <td>
+      <% if(sizes.length == 0){ %>
+             <input type="checkbox" name="size" value="S" checked="checked">S
+             <input type="checkbox" name="size" value="M" checked="checked">M
+             <input type="checkbox" name="size" value="G" checked="checked">G
+      <% } else {%>
+      <%     var size_idx = 0; %>
+      <%     var inputs = ['S', 'M', 'G']; %>
+      <%     for(var input_idx = 0; input_idx < 3; input_idx++){ %>
+                 <input type="checkbox" name="size" value="<%=inputs[input_idx]%>" 
+      <%         if(size_idx <= sizes.length){ %>
+      <%             if(inputs[input_idx] == sizes[size_idx]){ %>
+                         checked="checked"
+      <%                 size_idx++; %>
+      <%             } %>
+      <%         } %>
+                 ><%=inputs[input_idx]%>
+      <%     } %>
+      <% } %>
+      </td>
+  </tr>
+  <tr>
+    <td align="right"><b> 特性名：</b></td>
+    <td><input type="search" class="form-control" placeholder="例: AI れんぞく"
+         <% if (char_name != ''){ %>
+             value="<%= char_name %>" 
+         <% } %>
+         name="char_name" size="40" maxlength="40">
+    </td>
+    <td>のいずれかを含む</td>
+  </tr>
+  <tr>
+    <td>
+      <input id="submit_button" type="submit" value="調査開始">
+    </td>
+  </tr>
+</table>
+</form>
+
+<div class="scr">
+    調査結果：<%= records.length %>件, サーバ処理時間：<%= exec_time %>ms
+    <table id="fav-table" class="table table-bordered">
+        <thead><tr>
+                   <th>モンスター名</th><th>サイズ</th><th>系統</th><th>HP</th><th>MP</th><th>攻撃力</th>
+                   <th>守備力</th><th>素早さ</th><th>賢さ</th>
+                   <th>特性</th><th>効果</th>
+                   <th>マヒ耐性</th><th>ねむり耐性</th><th>こんらん耐性</th><th>マインド耐性</th>
+                   <th>ザキ耐性</th><th>毒耐性</th><th>ハック耐性</th><th>マヌーサ耐性</th>
+                   <th>炎ブレス耐性</th><th>吹雪ブレス耐性</th><th>バギ耐性</th><th>イオ耐性</th><th>ギラ耐性</th>
+                   <th>ドルマ耐性</th><th>メラ耐性</th><th>ヒャド耐性</th><th>デイン耐性</th><th>ベタン耐性</th>
+                   <th>ほとんどの特技の耐性</th>
+                   <th>ルカニ耐性</th><th>フール耐性</th><th>ダウン耐性</th><th>ボミエ耐性</th>
+                   <th>マホトラ耐性</th><th>マホトーン耐性</th>
+                   <th>踊り封じ耐性</th><th>斬撃封じ耐性</th><th>体技封じ耐性</th><th>息封じ耐性</th>
+               </tr>
+        </thead>
+        <tbody>
+        <% for (let i in records){ %>
+            <tr><td><a href="<%= records[i].url%>"><%= records[i].name %></a></td><td><%= records[i].size %></td></td><td><%=  %></td>
+                <td><%= records[i].hp %></td><td><%= records[i].mp %></td><td><%= records[i].attack %></td><td><%= records[i].guard %></td>
+                <td><%= records[i].agility %></td><td><%= records[i].wisdom %></td>
+                <!-- 特性  -->
+                <td>
+                <% char_names = records[i].char_name; %>
+                <% for (let j in char_names){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <%=     char_names[j] %>
+                <% } %>
+                </td>
+                <!-- 特性の効果  -->
+                <td>
+                <% char_effects = records[i].char_effect; %>
+                <% for (let j in char_effects){ %>
+                <%     if(j > 0){ %>
+                           <br>  
+                <%     }%>
+                <%=     char_effects[j] %>
+                <% } %>
+                </td>
+                <!-- マヒ耐性 -->
+                <td><%= records[i].tolerance['マヒ'] %></td>
+                <td><%= records[i].tolerance['ねむり'] %></td>
+                <td><%= records[i].tolerance['こんらん'] %></td>
+                <td><%= records[i].tolerance['マインド'] %></td>
+                <td><%= records[i].tolerance['ザキ'] %></td>
+                <td><%= records[i].tolerance['毒'] %></td>
+                <td><%= records[i].tolerance['ハック'] %></td>
+                <td><%= records[i].tolerance['マヌーサ'] %></td>
+                <td><%= records[i].tolerance['炎ブレス'] %></td>
+                <td><%= records[i].tolerance['吹雪ブレス'] %></td>
+                <td><%= records[i].tolerance['バギ'] %></td>
+                <td><%= records[i].tolerance['イオ'] %></td>
+                <td><%= records[i].tolerance['ギラ'] %></td>
+                <td><%= records[i].tolerance['ドルマ'] %></td>
+                <td><%= records[i].tolerance['メラ'] %></td>
+                <td><%= records[i].tolerance['ヒャド'] %></td>
+                <td><%= records[i].tolerance['デイン'] %></td>
+                <td><%= records[i].tolerance['ベタン'] %></td>
+                <td><%= records[i].tolerance['ほとんどの特技'] %></td>
+                <td><%= records[i].tolerance['ルカニ'] %></td>
+                <td><%= records[i].tolerance['フール'] %></td>
+                <td><%= records[i].tolerance['ダウン'] %></td>
+                <td><%= records[i].tolerance['ボミエ'] %></td>
+                <td><%= records[i].tolerance['マホトラ'] %></td>
+                <td><%= records[i].tolerance['マホトーン'] %></td>
+                <td><%= records[i].tolerance['踊り封じ'] %></td>
+                <td><%= records[i].tolerance['斬撃封じ'] %></td>
+                <td><%= records[i].tolerance['体技封じ'] %></td>
+                <td><%= records[i].tolerance['息封じ'] %></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+</body>

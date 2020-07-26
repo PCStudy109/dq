@@ -1,0 +1,48 @@
+<%- include('header') %>
+<style>
+#menu ul{ 
+margin: 0; 
+padding: 0; 
+list-style: none; 
+}
+#menu li{ 
+display: inline; 
+padding: 0; 
+margin: 0; 
+}
+#menu li a{
+display: block; 
+border-left: 8px solid silver;
+background-color: #87cefa;
+padding: 10px 20px;
+text-decoration: none;
+color: black;
+//width: 150px; 
+margin: 1px 0px;
+text-align: left;
+}
+#menu li a:hover{
+border-left: 8px solid gray;
+background-color: #005FFF;
+}
+</style>
+<body>
+<p><h4>テリワンSP パーティ作成支援</h4></p>
+<div id="menu">
+<ul>
+<li><a href="/monster"><b>モンスターを調べる</b></a></li>
+<li><a href="/speciality"><b>特技・特性を調べる</b></a></li>
+<li><a href="/skill"><b>スキルを調べる</b></a></li>
+</ul> 
+</div>
+</body>
+<footer>
+<div style="border: 1px dashed #eeee00;">
+  <h5 style="font-size: 15px;">本サイトの掲載情報について</h5>
+  <ul style="font-size: 80%;">
+    <li>「モンスターを調べる」で表示される情報は、<a href="https://gamewith.jp/terrysp/">GameWithさんのサイト</a>
+        から入手したデータを利用させてもらっています(ただし、一部、独自に加筆修正しています)。検索結果にはGameWithさんのサイトの記事にリンクがついています</li>
+    <li>上記以外の情報は、ゲーム内のライブラリに書かれている情報及び独自調査した情報に基づいています</li>
+  </ul>
+</div>
+</footer>
