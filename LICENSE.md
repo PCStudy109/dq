@@ -1,5 +1,1 @@
-/*
-** 2020 July 26
-**
-** The author disclaims copyright to this source code.
-*/
+2020 July 26. I waive copyright to this source code.
